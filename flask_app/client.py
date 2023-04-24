@@ -1,4 +1,5 @@
 import requests
+from . import config 
 
 
 class Movie(object):
@@ -97,7 +98,7 @@ class MovieClient(object):
 if __name__ == "__main__":
     import os
 
-    client = MovieClient(os.environ.get("OMDB_API_KEY"))
+    client = GameClient(API_KEY)
 
     movies = client.search("guardians")
 
