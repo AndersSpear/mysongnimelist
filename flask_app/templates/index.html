@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "header.html" %}
 {% block content %}
 
@@ -33,3 +34,40 @@
     </div>
 </div>
 {% endblock %}
+=======
+{% extends "header.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <form action="/" class="form-inline my-2 my-lg-0" method="POST">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-info">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {{ form.csrf_token }}
+            {{ form.search_query(class="form-control", placeholder="Search") }}
+
+            {% if form.search_query.errors %}
+            <div class="alert alert-warning" role="alert">
+                {% for error in form.search_query.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {{ form.submit(class="btn btn-outline-success") }}
+        </form>
+    </div>
+    <div class="col">
+        <h2>Please use the search bar to search for games! Then you can review them </h2>
+    </div>
+</div>
+{% endblock %}
+>>>>>>> 2f2efc8f18b1b48156b2958386b837d74d2e9019
