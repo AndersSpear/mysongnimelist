@@ -10,3 +10,5 @@ users/routes.py needs a little bit of work - ani
 
 games/routes.py needs a LOT of work - ani
 
+NEED TO ADD FLASKMAIL??? to the users
+
