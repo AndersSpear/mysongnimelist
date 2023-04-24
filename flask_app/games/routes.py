@@ -31,7 +31,7 @@ def query_results(query):
 
 
 @games.route("/games/<movie_id>", methods=["GET", "POST"])
-def movie_detail(movie_id):
+def game_Detail(movie_id):
     try:
         result = movie_client.retrieve_movie_by_id(movie_id)
     except ValueError as e:
@@ -54,7 +54,7 @@ def movie_detail(movie_id):
     reviews = Review.objects(imdb_id=movie_id)
 
     return render_template(
-        "movie_detail.html", form=form, movie=result, reviews=reviews
+        "game_detail.html", form=form, game=result, reviews=reviews
     )
 
 
