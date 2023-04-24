@@ -1,0 +1,4 @@
+flask_app/config.py
+__pycache__/
+.pytest_cache/
+flask_app/__pycache__/
