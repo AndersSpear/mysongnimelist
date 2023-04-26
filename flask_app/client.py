@@ -20,6 +20,11 @@ class Movie(object):
     def __repr__(self):
         return self.title
 
+class GameClient(object):
+    def __init__(self, api_key):
+        self.sess = requests.Session()
+        
+
 
 class MovieClient(object):
     def __init__(self, api_key):
