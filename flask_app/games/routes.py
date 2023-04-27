@@ -4,7 +4,7 @@ from flask_login import current_user
 from .. import movie_client
 from ..forms import MovieReviewForm, SearchForm
 from ..models import User, Review
-from ..utils import current_time
+from ..utils import current_time, calc_avg_rating
 
 
 games=Blueprint('games', __name__)
@@ -52,9 +52,11 @@ def game_Detail(game_id):
         return redirect(request.path)
 
     reviews = Review.objects(rawg_id=game_id)
+    
+    avg = calc_avg_rating(reviews)
 
     return render_template(
-        "game_detail.html", form=form, game=result, reviews=reviews
+        "game_detail.html", form=form, game=result, reviews=reviews, avg_rating=avg
     )
 
 
