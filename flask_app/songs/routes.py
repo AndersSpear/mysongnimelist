@@ -1,15 +1,15 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash
 from flask_login import current_user
 
-from .. import movie_client
-from ..forms import MovieReviewForm, SearchForm
+from .. import song_client
+from ..forms import SongReviewForm, SearchForm
 from ..models import User, Review
 from ..utils import current_time, calc_avg_rating
 
 
-games=Blueprint('games', __name__)
+songs=Blueprint('songs', __name__)
 
-@games.route("/", methods=["GET", "POST"])
+@songs.route("/", methods=["GET", "POST"])
 def index():
     form = SearchForm()
 
@@ -19,10 +19,10 @@ def index():
     return render_template("index.html", form=form)
 
 
-@games.route("/search-results/<query>", methods=["GET"])
+@songs.route("/search-results/<query>", methods=["GET"])
 def query_results(query):
     try:
-        results = game_client.search(query)
+        results = song_client.search(query)
     except ValueError as e:
         flash(str(e))
         return redirect(url_for("games.index"))
@@ -30,37 +30,37 @@ def query_results(query):
     return render_template("query.html", results=results)
 
 
-@games.route("/games/<game_id>", methods=["GET", "POST"])
-def game_Detail(game_id):
+@songs.route("/games/<game_id>", methods=["GET", "POST"])
+def song_Detail(song_id):
     try:
-        result = game_client.retrieve_game_by_id(game_id)
+        result = song_client.retrieve_game_by_id(song_id)
     except ValueError as e:
         flash(str(e))
         return redirect(url_for("users.login"))
 
-    form = GameReviewForm()
+    form = SongReviewForm()
     if form.validate_on_submit() and current_user.is_authenticated:
         review = Review(
             commenter=current_user._get_current_object(),
             content=form.text.data,
             date=current_time(),
-            rawg_id=game_id,
+            song_id=song_id,
             game_title=result.title,
         )
         review.save()
 
         return redirect(request.path)
 
-    reviews = Review.objects(rawg_id=game_id)
+    reviews = Review.objects(song_id=song_id)
     
     avg = calc_avg_rating(reviews)
 
     return render_template(
-        "game_detail.html", form=form, game=result, reviews=reviews, avg_rating=avg
+        "game_detail.html", form=form, song=result, reviews=reviews, avg_rating=avg
     )
 
 
-@games.route("/user/<username>")
+@songs.route("/user/<username>")
 def user_detail(username):
     user = User.objects(username=username).first()
     reviews = Review.objects(commenter=user)

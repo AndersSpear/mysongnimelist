@@ -24,11 +24,11 @@ class SearchForm(FlaskForm):
     submit = SubmitField("Search")
 
 
-class GameReviewForm(FlaskForm):
+class SongReviewForm(FlaskForm):
     text = TextAreaField(
         "Review", validators=[InputRequired(), Length(min=5, max=500)]
     )
-    rating = IntergerField("Rating",validators=[InputRequired(),NumberRnage(min=0,max=5)])
+    rating = IntegerField("Rating",validators=[InputRequired(), NumberRange(min=0,max=5)])
     submit = SubmitField("Submit Review")
 
 

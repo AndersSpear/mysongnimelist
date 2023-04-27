@@ -30,7 +30,7 @@ def register():
             elif (not c.isalpha()) and (not c.isdigit):
                 special_char = True
             
-        if upper_case && number && special_char && pass_len >= 12: 
+        if upper_case and number and special_char and pass_len >= 12:
                
             hashed = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
             user = User(username=form.username.data, email=form.email.data, password=hashed)

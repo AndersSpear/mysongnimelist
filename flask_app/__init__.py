@@ -22,10 +22,10 @@ from .client import MovieClient
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
-movie_client = MovieClient(os.environ.get("OMDB_API_KEY"))
+songs_client = SongsClient(os.environ.get("OMDB_API_KEY"))
 
 from .users.routes import users
-from .movies.routes import movies
+from .songs.routes import songs
 
 def page_not_found(e):
     return render_template("404.html"), 404
@@ -45,7 +45,7 @@ def create_app(test_config=None):
     app.register_blueprint(users)
     app.register_error_handler(404, page_not_found)
 
-    app.register_blueprint(movies)
+    app.register_blueprint(songs)
     app.register_error_handler(404, page_not_found)
 
     login_manager.login_view = "users.login"
