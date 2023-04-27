@@ -15,11 +15,32 @@ def register():
 
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-        user = User(username=form.username.data, email=form.email.data, password=hashed)
-        user.save()
+        
+        upper_case = False
+        number = False
+        special_char = False
+        pass_len = len(form.password.data)
+        
+        for c in form.password.data:
+            
+            if c.isupper():
+                upper_case = True
+            elif c.isdigit():
+                number = True
+            elif (not c.isalpha()) and (not c.isdigit):
+                special_char = True
+            
+        if upper_case && number && special_char && pass_len >= 12: 
+               
+            hashed = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
+            user = User(username=form.username.data, email=form.email.data, password=hashed)
+            user.save()
 
-        return redirect(url_for("users.login"))
+            return redirect(url_for("users.login"))
+        
+        else:
+            
+            flash("Your password is weak. It must be at least 12 characters long and contain at least one upper case, one number, and one special character.")
 
     return render_template("register.html", title="Register", form=form)
 
