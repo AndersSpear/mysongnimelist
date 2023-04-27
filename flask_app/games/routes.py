@@ -30,28 +30,28 @@ def query_results(query):
     return render_template("query.html", results=results)
 
 
-@games.route("/games/<movie_id>", methods=["GET", "POST"])
-def game_Detail(movie_id):
+@games.route("/games/<game_id>", methods=["GET", "POST"])
+def game_Detail(game_id):
     try:
-        result = movie_client.retrieve_movie_by_id(movie_id)
+        result = game_client.retrieve_game_by_id(game_id)
     except ValueError as e:
         flash(str(e))
         return redirect(url_for("users.login"))
 
-    form = MovieReviewForm()
+    form = GameReviewForm()
     if form.validate_on_submit() and current_user.is_authenticated:
         review = Review(
             commenter=current_user._get_current_object(),
             content=form.text.data,
             date=current_time(),
-            imdb_id=movie_id,
-            movie_title=result.title,
+            rawg_id=game_id,
+            game_title=result.title,
         )
         review.save()
 
         return redirect(request.path)
 
-    reviews = Review.objects(imdb_id=movie_id)
+    reviews = Review.objects(rawg_id=game_id)
 
     return render_template(
         "game_detail.html", form=form, game=result, reviews=reviews
