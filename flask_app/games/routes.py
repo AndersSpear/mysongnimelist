@@ -22,7 +22,7 @@ def index():
 @games.route("/search-results/<query>", methods=["GET"])
 def query_results(query):
     try:
-        results = movie_client.search(query)
+        results = game_client.search(query)
     except ValueError as e:
         flash(str(e))
         return redirect(url_for("games.index"))
