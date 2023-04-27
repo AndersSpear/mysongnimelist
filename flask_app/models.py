@@ -25,6 +25,6 @@ class User(db.Document, UserMixin):
 class Review(db.Document):
     commenter = db.ReferenceField(User, required=True)
     content = db.StringField(required=True, min_length=5, max_length=1000)
-    date = db.DateField(required=True) # format='%Y-%m-%d
+    date = db.DateField(required=True,format='%m/%d/%Y)
     rawg_id = db.StringField(required=True, min_length=1, max_length=50)
     game_title = db.StringField(required=True, min_length=1, max_length=100)
