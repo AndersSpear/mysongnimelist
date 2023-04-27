@@ -21,10 +21,10 @@ class User(db.Document, UserMixin):
         return self.username
 
 
-#need to change this to match games
 class Review(db.Document):
     commenter = db.ReferenceField(User, required=True)
-    content = db.StringField(required=True, min_length=5, max_length=500)
-    date = db.StringField(required=True)
-    imdb_id = db.StringField(required=True, min_length=9, max_length=9)
-    movie_title = db.StringField(required=True, min_length=1, max_length=100)
+    content = db.StringField(required=True, min_length=5, max_length=1000)
+    date = db.DateField(required=True) # format='%Y-%m-%d
+    rawg_id = db.StringField(required=True, min_length=9, max_length=9)
+    game_title = db.StringField(required=True, min_length=1, max_length=100)
+    avg_rating = db.DecimalField(required=True,places=2,rounding=Decimal.ROUND_HALF_EVEN)
