@@ -2,20 +2,18 @@ import requests
 from . import config 
 
 
-class Movie(object):
+class Game(object):
     def __init__(self, omdb_json, detailed=False):
         if detailed:
-            self.genres = omdb_json["Genre"]
-            self.director = omdb_json["Director"]
-            self.actors = omdb_json["Actors"]
-            self.plot = omdb_json["Plot"]
-            self.awards = omdb_json["Awards"]
+            self.ratings_count = omdb_json["Ratings"]
+            self.playtime = omdb_json["Playtime"]
+            self.esrb_rating = omdb_json["ESRB_Rating"]
 
         self.title = omdb_json["Title"]
-        self.year = omdb_json["Year"]
-        self.imdb_id = omdb_json["imdbID"]
-        self.type = "Movie"
-        self.poster_url = omdb_json["Poster"]
+        self.rating = omdb_json["Rating"]
+        self.rawg_ID = omdb_json["rawgID"]
+        self.type = "Game"
+        self.background_url = omdb_json["Background_Image"]
 
     def __repr__(self):
         return self.title
@@ -23,7 +21,7 @@ class Movie(object):
 class GameClient(object):
     def __init__(self, api_key):
         self.sess = requests.Session()
-        
+        self.base_url = f"http://www.omdbapi.com/?apikey={api_key}&r=json&type=movie&"
 
 
 class MovieClient(object):
