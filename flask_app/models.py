@@ -28,4 +28,3 @@ class Review(db.Document):
     date = db.DateField(required=True) # format='%Y-%m-%d
     rawg_id = db.StringField(required=True, min_length=1, max_length=50)
     game_title = db.StringField(required=True, min_length=1, max_length=100)
-    avg_rating = db.DecimalField(required=True,places=2,rounding=Decimal.ROUND_HALF_EVEN)
