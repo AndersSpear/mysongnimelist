@@ -1,5 +1,5 @@
 import requests
-from . import config 
+from . import config
 
 
 class Game(object):
@@ -18,10 +18,56 @@ class Game(object):
     def __repr__(self):
         return self.title
 
+
 class GameClient(object):
     def __init__(self, api_key):
         self.sess = requests.Session()
-        self.base_url = f"http://www.omdbapi.com/?apikey={api_key}&r=json&type=movie&"
+        self.base_url = f"https://api.rawg.io/api/games?key={api_key}"
+
+    def search(self, search_string):
+        """
+        Searches the API for the supplied search_string, and returns
+        a list of Media objects if the search was successful, or the error response
+        if the search failed.
+
+        Only use this method if the user is using the search bar on the website.
+        """
+        search_string = "+".join(search_string.split())
+        page = 1
+
+        search_url = f"s={search_string}&page={page}"
+
+        resp = self.sess.get(self.base_url + search_url)
+
+        if resp.status_code != 200:
+            raise ValueError(
+                "Search request failed; make sure your API key is correct and authorized"
+            )
+
+        data = resp.json()
+
+        if data["Response"] == "False":
+            raise ValueError(
+                f'[ERROR]: Error retrieving results: \'{data["Error"]}\' ')
+
+        search_results_json = data["Search"]
+        remaining_results = int(data["totalResults"])
+
+        result = []
+
+        # We may have more results than are first displayed
+        while remaining_results != 0:
+            for item_json in search_results_json:
+                result.append(Movie(item_json))
+                remaining_results -= len(search_results_json)
+            page += 1
+            search_url = f"s={search_string}&page={page}"
+            resp = self.sess.get(self.base_url + search_url)
+            if resp.status_code != 200 or resp.json()["Response"] == "False":
+                break
+            search_results_json = resp.json()["Search"]
+
+        return result
 
 
 class MovieClient(object):
@@ -52,14 +98,15 @@ class MovieClient(object):
         data = resp.json()
 
         if data["Response"] == "False":
-            raise ValueError(f'[ERROR]: Error retrieving results: \'{data["Error"]}\' ')
+            raise ValueError(
+                f'[ERROR]: Error retrieving results: \'{data["Error"]}\' ')
 
         search_results_json = data["Search"]
         remaining_results = int(data["totalResults"])
 
         result = []
 
-        ## We may have more results than are first displayed
+        # We may have more results than are first displayed
         while remaining_results != 0:
             for item_json in search_results_json:
                 result.append(Movie(item_json))
