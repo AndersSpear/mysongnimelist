@@ -1,5 +1,6 @@
 # 3rd-party packages
 from flask import Flask, render_template, request, redirect, url_for
+# from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
 from flask_mongoengine import MongoEngine
 from flask_login import (
     LoginManager,
@@ -23,17 +24,18 @@ db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 songs_client = SongsClient(os.environ.get("OMDB_API_KEY"))
+app = Flask(__name__)
 
 from .users.routes import users
 from .songs.routes import songs
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 
 def page_not_found(e):
     return render_template("404.html"), 404
 
 
 def create_app(test_config=None):
-    app = Flask(__name__)
-
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
         app.config.update(test_config)

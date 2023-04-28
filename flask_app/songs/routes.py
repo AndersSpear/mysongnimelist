@@ -30,7 +30,7 @@ def query_results(query):
     return render_template("query.html", results=results)
 
 
-@songs.route("/games/<game_id>", methods=["GET", "POST"])
+@songs.route("/songs/<song_id>", methods=["GET", "POST"])
 def song_Detail(song_id):
     try:
         result = song_client.retrieve_game_by_id(song_id)

@@ -48,7 +48,7 @@ def register():
 @users.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("games.index"))
+        return redirect(url_for("songs.index"))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -70,7 +70,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("games.index"))
+    return redirect(url_for("songs.index"))
 
 
 @users.route("/account", methods=["GET", "POST"])
