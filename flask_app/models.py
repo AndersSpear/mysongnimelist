@@ -29,6 +29,6 @@ class Review(db.Document):
     content = db.StringField(required=True, min_length=5, max_length=1000)
     date = db.DateField(required=True,format='%m/%d/%Y')
     song_id = db.StringField(required=True, min_length=1, max_length=50)
-    song_title = db.StringField(required=True, min_length=1, max_length=100)
+    song_name = db.StringField(required=True, min_length=1, max_length=100)
     # commenting a broken integer field for now
     #rating = db.IntegerField(required=True,min="0",max="5")

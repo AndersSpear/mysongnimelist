@@ -14,7 +14,7 @@ def index():
     form = SearchForm()
 
     if form.validate_on_submit():
-        return redirect(url_for("games.query_results", query=form.search_query.data))
+        return redirect(url_for("songs.query_results", query=form.search_query.data))
 
     return render_template("index.html", form=form)
 
@@ -23,17 +23,23 @@ def index():
 def query_results(query):
     try:
         results = song_client.search(query)
+        if results == None:
+            flash("No results found.")
+            return redirect(url_for("songs.index"))
+        # for result in results:
+        #     print(result["name"])
+
     except ValueError as e:
         flash(str(e))
-        return redirect(url_for("games.index"))
+        return redirect(url_for("songs.index"))
 
     return render_template("query.html", results=results)
 
 
 @songs.route("/songs/<song_id>", methods=["GET", "POST"])
-def song_Detail(song_id):
+def song_detail(song_id):
     try:
-        result = song_client.retrieve_game_by_id(song_id)
+        result = song_client.get_song(song_id)
     except ValueError as e:
         flash(str(e))
         return redirect(url_for("users.login"))
@@ -45,7 +51,7 @@ def song_Detail(song_id):
             content=form.text.data,
             date=current_time(),
             song_id=song_id,
-            game_title=result.title,
+            song_name=result.song_name,
         )
         review.save()
 
@@ -53,10 +59,10 @@ def song_Detail(song_id):
 
     reviews = Review.objects(song_id=song_id)
     
-    avg = calc_avg_rating(reviews)
+    # avg = calc_avg_rating(reviews)
 
     return render_template(
-        "game_detail.html", form=form, song=result, reviews=reviews, avg_rating=avg
+        "song_detail.html", form=form, song=result, reviews=reviews
     )
 
 

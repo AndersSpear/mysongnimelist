@@ -11,7 +11,7 @@ users=Blueprint('users', __name__)
 @users.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for("games.index"))
+        return redirect(url_for("songs.index"))
 
     form = RegistrationForm()
     if form.validate_on_submit():
