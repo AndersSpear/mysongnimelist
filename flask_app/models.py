@@ -15,7 +15,9 @@ class User(db.Document, UserMixin):
     username = db.StringField(required=True, unique=True)
     email = db.EmailField(required=True, unique=True)
     password = db.StringField(required=True)
-    total_reviews = db.IntegerField(required=True)
+
+    # Integer field broke so commenting it for now
+    # total_reviews = db.IntegerField(required=True)
 
     # Returns unique string identifying our object
     def get_id(self):
@@ -28,4 +30,5 @@ class Review(db.Document):
     date = db.DateField(required=True,format='%m/%d/%Y')
     song_id = db.StringField(required=True, min_length=1, max_length=50)
     song_title = db.StringField(required=True, min_length=1, max_length=100)
-    rating = db.IntegerField(required=True,min="0",max="5")
+    # commenting a broken integer field for now
+    #rating = db.IntegerField(required=True,min="0",max="5")

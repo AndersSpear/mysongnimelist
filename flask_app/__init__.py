@@ -17,19 +17,21 @@ from datetime import datetime
 import os
 
 # local
-from .client import MovieClient
+from .client import SongClient
 
 
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
-songs_client = SongsClient(os.environ.get("OMDB_API_KEY"))
+song_client = SongClient()
 app = Flask(__name__)
+
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 
 from .users.routes import users
 from .songs.routes import songs
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 
 def page_not_found(e):
     return render_template("404.html"), 404
