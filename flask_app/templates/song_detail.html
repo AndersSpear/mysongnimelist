@@ -1,0 +1,82 @@
+{% extends "header.html" %}
+{% block content %}
+
+{% if error_msg %}
+<b>{{ error_msg }}</b>
+{% endif %}
+
+{% if song %}
+
+{# Display card for the song details #}
+<div class="row">
+  <div class="col">
+    <div class="card text-center">
+      <div class="card-header">
+        {{ song.song_name }} ({{ song.song_primary_artist }})
+      </div>
+      <div class="card-body">
+        <img src="{{ song.song_image }}" class="mr-3 song" alt="alt text">
+        <ul class="list-group list-group-flush">
+          <!-- NEED TO ADD FULL ARTIST LIST (probably loop through the array and display them), 
+            need to fix the url embed, add some way to display if its explicit or not -->
+          <li class="list-group-item"><b>Album:</b> {{ song.album_name }}</li>
+          <li class="list-group-item"><b>Popularity:</b> {{ song.song_popularity }}</li>
+          <li class="list-group-item"><b>Preview:</b> <audio controls>
+            <source src={{song.song_preview_url}} />
+          </audio></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Reviews #}
+<div class="row">
+  <div class="col-md-12">
+    <h1> Reviews <small class="float-right">{{ reviews|length }} reviews</small></h1>
+    <ul class="media-list">
+      {% for review in reviews %}
+      <li class="media review-item">
+        <div class="media-body">
+          <span class="float-right">
+            <small>{{ review.date }}</small>
+          </span>
+          <a href="{{ url_for('main.user_detail', username=review.commenter.username) }}">
+            <strong>@{{ review.commenter.username }}</strong>
+          </a>
+          <p>
+            {{ review.content }}
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% if current_user.is_authenticated %}
+{# Movie review submission form #}
+<div class="row">
+  <div class="col">
+    <form method="POST" action="">
+      {{ form.csrf_token }}
+      <div class="form-group">
+        {{ form.text.label }}
+        {{ form.text(class="form-control") }}
+
+        {% if form.text.errors %}
+        <div class="alert alert-warning" role="alert">
+          {% for error in form.text.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+      </div>
+      {{ form.submit() }}
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endif %}
+{% endblock content %}
