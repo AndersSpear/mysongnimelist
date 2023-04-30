@@ -1,4 +1,7 @@
 flask_app/config.py
 __pycache__/
-.pytest_cache/
+pytest_cache/
 flask_app/__pycache__/
+flask_app/users/__pycache__/
+.cache 
+.DS_Store
