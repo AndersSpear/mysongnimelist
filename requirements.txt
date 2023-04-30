@@ -32,4 +32,4 @@ urllib3==1.25.11
 Werkzeug==1.0.1
 WTForms==2.3.3
 Flask-Mail==0.9.1
-spotipy==2.23.0
+spotipy
