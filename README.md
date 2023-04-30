@@ -4,8 +4,11 @@
 
 ## TODO LIST:
 ~~set up api (spotipy)~~ - Anders
+
 find a platform to host - Anders
-~~make website fully running by 4/28~~ (the song search and display should be fully functional) - Anders
+
+~~make website fully running by 4/28~~ -Anders
+(the song search and display should be fully functional) -Anders
 
 1. ~~need to edit models to have a better review class~~ - lily
 2. ~~change CLIENT a lot to be able to use the new api~~ - Anders
