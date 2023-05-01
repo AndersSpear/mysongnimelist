@@ -11,6 +11,8 @@ from flask_login import (
 )
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
+from flask_dance.contrib.discord import make_discord_blueprint, discord
+import ssl
 
 # stdlib
 from datetime import datetime
@@ -26,18 +28,24 @@ bcrypt = Bcrypt()
 song_client = SongClient()
 app = Flask(__name__)
 
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain('/Users/aspear/Coding/flask/mygamenimelist/localhost.pem', '/Users/aspear/Coding/flask/mygamenimelist/localhost-key.pem')
+
+app.ssl_context = context
+
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 
 from .users.routes import users
 from .songs.routes import songs
-
+from .discord.routes import discordd 
 
 def page_not_found(e):
     return render_template("404.html"), 404
 
 
 def create_app(test_config=None):
+
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
         app.config.update(test_config)
@@ -49,9 +57,32 @@ def create_app(test_config=None):
     app.register_blueprint(users)
     app.register_error_handler(404, page_not_found)
 
+    app.register_blueprint(discordd)
+    app.register_error_handler(404, page_not_found)
+
     app.register_blueprint(songs)
     app.register_error_handler(404, page_not_found)
 
     login_manager.login_view = "users.login"
 
     return app
+
+# if __name__ == '__main__':
+
+#     app.config.from_pyfile("config.py", silent=False)
+
+#     db.init_app(app)
+#     login_manager.init_app(app)
+#     bcrypt.init_app(app)
+
+#     app.register_blueprint(users)
+#     app.register_error_handler(404, page_not_found)
+
+#     app.register_blueprint(discordd)
+#     app.register_error_handler(404, page_not_found)
+
+#     app.register_blueprint(songs)
+#     app.register_error_handler(404, page_not_found)
+
+#     login_manager.login_view = "users.login"
+#     app.run(debug=True, ssl_context=context)
