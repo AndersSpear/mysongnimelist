@@ -12,19 +12,12 @@ discordd = make_discord_blueprint(
 )
 
 
-@discordd.route("/log")
-def log():
+@discordd.route("/")
+def index():
     if not discord.authorized:
         return redirect(url_for("discord.login"))
     resp = discord.get("/api/users/@me")
-    return redirect(url_for("songs.index"))
-
-# @app.route("/")
-# def index():
-#     if not discord.authorized:
-#         return redirect(url_for("discord.login"))
-#     resp = discord.get("/api/users/@me")
-#     return render_template("song.html")
+    return render_template("song.html")
 
 
 # @app.route("/logout")

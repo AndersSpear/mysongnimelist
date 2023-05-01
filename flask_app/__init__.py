@@ -57,7 +57,7 @@ def create_app(test_config=None):
     app.register_blueprint(users)
     app.register_error_handler(404, page_not_found)
 
-    app.register_blueprint(discordd)
+    app.register_blueprint(discordd, url_prefix="/login")
     app.register_error_handler(404, page_not_found)
 
     app.register_blueprint(songs)
