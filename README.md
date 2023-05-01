@@ -18,8 +18,8 @@ find a platform to host - Anders
 
 For the meeting after 4/26
 1. NEED TO ADD FLASKMAIL to the users OR just generally improve functionality - Lily
-2. need to integrate a second python package - Ani
+2. ~~need to integrate a second python package - Ani
 
 
-## make flask-discord work - Ani
+## ~~make flask-discord work - Ani
 ## maybe make flask-mail work - Lily
