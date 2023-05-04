@@ -69,7 +69,7 @@ class SongClient(object):
         Only use this method if the user is using the search bar on the website.
         """
         result = self.sp.track(song_id)
-
+        print("result:\n\n", result, "\n\n")
         songdict = {}
         songdict["name"] = result["name"]
         songdict["artists"] = result["artists"]
@@ -89,8 +89,8 @@ if __name__ == "__main__":
     import os
 
     client = SongClient()
-    print(client.search("star")[0])
-    print(client.get_song("7MXVkk9YMctZqd1Srtv4MB"))
+    print(client.search("rat")[0])
+    print(client.get_song("4blPH3Uy89WnOnYlIv7Ev4"))
 
 
 # {'disc_number': 1, 'duration_ms': 267066, 'explicit': False, 'external_ids': {'isrc': 'USCM51500238'}, 'external_urls': {'spotify': 'https://open.spotify.com/track/0wwPcA6wtMf6HUMpIRdeP7'}, 'href': 'https://api.spotify.com/v1/tracks/0wwPcA6wtMf6HUMpIRdeP7', 'id': '0wwPcA6wtMf6HUMpIRdeP7', 'is_local': False, 'name': 'Hotline Bling', 'popularity': 80, 'preview_url': 'https://p.scdn.co/mp3-preview/2541ea8f31c87a3bda268b2b7a25bde73530e07d?cid=43c32308e1f940cba0cbcda5c0ecb6d6', 'track_number': 20, 'type': 'track', 'uri': 'spotify:track:0wwPcA6wtMf6HUMpIRdeP7'}
