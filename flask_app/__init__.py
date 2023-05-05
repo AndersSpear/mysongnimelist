@@ -28,11 +28,6 @@ bcrypt = Bcrypt()
 song_client = SongClient()
 app = Flask(__name__)
 
-context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-context.load_cert_chain('/Users/aspear/Coding/flask/mygamenimelist/localhost.pem', '/Users/aspear/Coding/flask/mygamenimelist/localhost-key.pem')
-
-app.ssl_context = context
-
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 

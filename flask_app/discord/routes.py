@@ -5,10 +5,11 @@ from flask_dance.contrib.discord import make_discord_blueprint, discord
 from .. import bcrypt
 from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm
 from ..models import User
+import os
 
 discordd = make_discord_blueprint(
-    client_id="1102379414114807878",
-    client_secret="LAgNwjE9Qxh_DOZJWmipPOMFVuLSlEYe"
+    client_id=os.environ.get('DISCORD_CLIENT_ID'),
+    client_secret=os.environ.get('DISCORD_CLIENT_SECRET')
 )
 
 
