@@ -9,29 +9,28 @@ import os, requests
 
 API_ENDPOINT = 'https://discord.com/api/v10'
 REDIRECT_URI = 'https://127.0.0.1:5000/callback'
-OAUTH_URL = f'https://discord.com/api/oauth2/authorize?client_id=1102379414114807878&redirect_uri={parse.quote(REDIRECT_URI)}&response_type=code&scope=identify'
 
 discordd = make_discord_blueprint(
-    client_id='1102379414114807878',
-    client_secret='qC5nJBaWR6RgPmO8OUopkdCFbHfB-a1L',
-    redirect_url='https://127.0.0.1:5000/callback',
+    client_id=os.environ.get("DISCORD_CLIENT_ID"),
+    client_secret=os.environ.get("DISCORD_CLIENT_SECRET"),
+    redirect_url=REDIRECT_URI,
 )
 
 
-@discordd.route("/")
-def index():
-    if not discord.authorized:
-        return redirect(url_for("discord.login"))
-    resp = discord.get("/api/users/@me")
-    return redirect(url_for('discord.logout'))
+# @discordd.route("/")
+# def index():
+#     if not discord.authorized:
+#         return redirect(url_for("discord.login"))
+#     resp = discord.get("/api/users/@me")
+#     return redirect(url_for('discord.logout'))
 
 
 @discordd.route("/callback")
 def callback():
     code = request.args['code']
     data = {
-        'client_id': '1102379414114807878',
-        'client_secret': 'qC5nJBaWR6RgPmO8OUopkdCFbHfB-a1L',
+        'client_id': os.environ.get("DISCORD_CLIENT_ID"),
+        'client_secret': os.environ.get("DISCORD_CLIENT_SECRET"),
         'grant_type': 'authorization_code',
         'code': code,
         'redirect_uri': REDIRECT_URI
