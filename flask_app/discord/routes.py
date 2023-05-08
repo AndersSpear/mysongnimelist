@@ -4,8 +4,9 @@ from flask_dance.contrib.discord import make_discord_blueprint, discord
 from urllib import parse
 from .. import bcrypt
 from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm
-from ..models import User
+from ..models import User, load_user
 import os, requests
+
 
 API_ENDPOINT = 'https://discord.com/api/v10'
 REDIRECT_URI = 'https://127.0.0.1:5000/callback'
