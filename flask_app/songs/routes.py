@@ -45,11 +45,11 @@ def song_detail(song_id):
         return redirect(url_for("songs.index"))
 
     form = SongReviewForm()
-    print("i got here")
-    print(form.validate_on_submit())
-    print(current_user.is_authenticated)
+    #print("i got here")
+    #print(form.validate_on_submit())
+    #print(current_user.is_authenticated)
     if form.validate_on_submit() and current_user.is_authenticated:
-        print("statement is true")
+        #print("statement is true")
         review = Review(
             commenter=current_user._get_current_object(),
             content=form.text.data,
@@ -57,9 +57,9 @@ def song_detail(song_id):
             song_id=song_id,
             song_name=result.song_name,
         )
-        print("i got here 2")
+        #print("i got here 2")
         review.save()
-        print("i got here 3")
+        #print("i got here 3")
         return redirect(request.path)
 
     reviews = Review.objects(song_id=song_id)
