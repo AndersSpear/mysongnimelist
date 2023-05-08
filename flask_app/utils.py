@@ -12,6 +12,6 @@ def calc_avg_rating(reviews):
     return avg
 
 def current_time() -> str:
-    print(type(datetime))
-    print(type(datetime.now()))
+    #print(type(datetime))
+    #print(type(datetime.now()))
     return str(datetime.now().month)+'/'+str(datetime.now().day)+'/'+str(datetime.now().year)
