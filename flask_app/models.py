@@ -15,7 +15,7 @@ class User(db.Document, UserMixin):
     username = db.StringField(required=True, unique=True)
     email = db.EmailField()
     password = db.StringField()
-    discord_user_id = db.StringField(unique=True)
+    discord_user_id = db.StringField()
 
     # Integer field broke so commenting it for now
     # total_reviews = db.IntegerField(required=True)
