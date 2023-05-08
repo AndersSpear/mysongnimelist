@@ -47,7 +47,13 @@ def callback():
 
     if resp2.status_code == 200:
         user_info = resp2.json()
-        return "YOUR NAME IS " + user_info['user']['username']
+        username = user_info['user']['username']
+        user = load_user(username)
+        if user is None:
+            user = User(username=username)
+            user.save()
+        login_user(user)
+        return redirect(url_for("users.account"))
     else:
         return "Invalid"
 
