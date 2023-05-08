@@ -7,7 +7,7 @@ from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm
 from ..models import User, load_user
 import os, requests
 
-
+#heres a commnet
 API_ENDPOINT = 'https://discord.com/api/v10'
 REDIRECT_URI = 'https://msl.aspear.net/callback'
 
