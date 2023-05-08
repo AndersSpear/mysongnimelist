@@ -69,7 +69,6 @@ class SongClient(object):
         Only use this method if the user is using the search bar on the website.
         """
         result = self.sp.track(song_id)
-        print("result:\n\n", result, "\n\n")
         songdict = {}
         songdict["name"] = result["name"]
         songdict["artists"] = result["artists"]

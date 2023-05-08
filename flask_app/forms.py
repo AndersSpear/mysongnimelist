@@ -26,9 +26,9 @@ class SearchForm(FlaskForm):
 
 class SongReviewForm(FlaskForm):
     text = TextAreaField(
-        "Review", validators=[InputRequired(), Length(min=5, max=500)]
+        "Review", validators=[InputRequired(), Length(min=1, max=500)]
     )
-    rating = IntegerField("Rating",validators=[InputRequired(), NumberRange(min=0,max=5)])
+    #rating = IntegerField("Rating",validators=[InputRequired(), NumberRange(min=0,max=5)])
     submit = SubmitField("Submit Review")
 
 

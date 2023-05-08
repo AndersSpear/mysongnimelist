@@ -18,7 +18,7 @@
                     <span class="float-right">
                         <small>{{ review.date }}</small>
                     </span>
-                    <strong>For: <a href="{{ url_for('songs.song_detail', movie_id=review.song_id) }}">
+                    <strong>For: <a href="{{ url_for('songs.song_detail', song_id=review.song_id) }}">
                             {{ review.song_name }}
                         </a>
                     </strong>

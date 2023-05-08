@@ -29,7 +29,7 @@ def query_results(query):
         # for result in results:
         #     print(result["name"])
 
-    except ValueError as e:
+    except Exception as e:
         flash(str(e))
         return redirect(url_for("songs.index"))
 
@@ -40,12 +40,16 @@ def query_results(query):
 def song_detail(song_id):
     try:
         result = song_client.get_song(song_id)
-    except ValueError as e:
+    except Exception as e:
         flash(str(e))
-        return redirect(url_for("users.login"))
+        return redirect(url_for("songs.index"))
 
     form = SongReviewForm()
+    print("i got here")
+    print(form.validate_on_submit())
+    print(current_user.is_authenticated)
     if form.validate_on_submit() and current_user.is_authenticated:
+        print("statement is true")
         review = Review(
             commenter=current_user._get_current_object(),
             content=form.text.data,
@@ -53,8 +57,9 @@ def song_detail(song_id):
             song_id=song_id,
             song_name=result.song_name,
         )
+        print("i got here 2")
         review.save()
-
+        print("i got here 3")
         return redirect(request.path)
 
     reviews = Review.objects(song_id=song_id)
