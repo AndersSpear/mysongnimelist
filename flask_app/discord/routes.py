@@ -9,7 +9,7 @@ import os, requests
 
 
 API_ENDPOINT = 'https://discord.com/api/v10'
-REDIRECT_URI = 'https://127.0.0.1:5000/callback'
+REDIRECT_URI = 'https://msl.aspear.net/callback'
 
 discordd = make_discord_blueprint(
     client_id=os.environ.get("DISCORD_CLIENT_ID"),
