@@ -49,9 +49,10 @@ def callback():
     if resp2.status_code == 200:
         user_info = resp2.json()
         username = user_info['user']['username']
-        user = load_user(username)
+        discord_user_id = user_info['user']['id']
+        user = User.objects(discord_user_id=discord_user_id).first()
         if user is None:
-            user = User(username=username)
+            user = User(username=username, discord_user_id=discord_user_id)
             user.save()
         login_user(user)
         return redirect(url_for("users.account"))
