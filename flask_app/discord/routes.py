@@ -55,7 +55,7 @@ def callback():
         login_user(user)
         return redirect(url_for("users.account"))
     else:
-        return "Invalid"
+        return render_template("404.html")
 
 
 @discordd.route("/logout")
