@@ -58,7 +58,7 @@ def callback():
             'Authorization': f'Bearer {access_token}'
         })
         user_data = resp3.json()
-        email = user_data['email']
+        #email = user_data['email']
 
         user = User.objects(discord_user_id=discord_user_id).first()
         if user is None:
