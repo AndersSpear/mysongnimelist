@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <h2>About</h2>
+        <p>Mysongimelist is a web application that allows users to search for <a href = "https://open.spotify.com/">Spotify</a> songs. Once you search for a song, you can listen to a short clip of the song and read reviews of the song. If you log in with discord or email, you can also leave your own review! You can search for songs <a href = {{ url_for('songs.index')}}>here</a>!</p>
+    </div>
+    <div class="col">
+        <h2>Website Creators</h2>
+          <li>Anders Spear</li>
+          <li>Anirudha Uppugunduri</li>
+          <li>Lily Larson</li>
+    </div>
+</div>
+
+{% endblock %}

@@ -53,10 +53,18 @@ def callback():
         user_info = resp2.json()
         username = user_info['user']['username']
         discord_user_id = user_info['user']['id']
+
+        resp3 = requests.get('https://discord.com/api/users/@me', headers={
+            'Authorization': f'Bearer {access_token}'
+        })
+        user_data = resp3.json()
+        email = user_data['email']
+
         user = User.objects(discord_user_id=discord_user_id).first()
         if user is None:
             user = User(username=username, discord_user_id=discord_user_id)
             user.save()
+
         login_user(user)
         return redirect(url_for("users.account"))
     else:

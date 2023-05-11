@@ -78,3 +78,6 @@ def user_detail(username):
 
     return render_template("user_detail.html", username=username, reviews=reviews)
 
+@songs.route("/about")
+def about():
+    return render_template("about.html")
