@@ -10,7 +10,7 @@ import os, requests
 
 #heres a commnet
 API_ENDPOINT = 'https://discord.com/api/v10'
-REDIRECT_URI = 'https://msl.aspear.net/callback'
+REDIRECT_URI = 'https://msl.aspear.cs.umd.edu/callback'
 
 discordd = make_discord_blueprint(
     client_id=os.environ.get("DISCORD_CLIENT_ID"),
