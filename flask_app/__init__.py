@@ -18,6 +18,7 @@ import ssl
 from datetime import datetime
 import os
 
+
 # local
 from .client import SongClient
 
@@ -28,6 +29,8 @@ bcrypt = Bcrypt()
 song_client = SongClient()
 app = Flask(__name__)
 
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 

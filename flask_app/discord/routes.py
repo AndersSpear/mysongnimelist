@@ -7,8 +7,6 @@ from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm
 from ..models import User, load_user
 import os, requests
 
-print(os.environ.get("DISCORD_CLIENT_ID"))
-print(os.environ.get("DISCORD_CLIENT_SECRET"))
 
 #heres a commnet
 API_ENDPOINT = 'https://discord.com/api/v10'
